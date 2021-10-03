@@ -10,6 +10,7 @@ extends Node2D
 
 var player_state = []
 var player_node
+var current_position_text_node 
 
 var new_ghost_object
 
@@ -41,6 +42,7 @@ func _ready():
 	add_child(objective_object_instance)
 	
 	player_node = get_node("/root/controller/player")
+	current_position_text_node = get_node("/root/controller/CanvasLayer/current_position")
 	pass # Replace with function body.
 
 
@@ -50,6 +52,8 @@ func _process(delta):
 	var distance_to_objective = (objective_object_instance.get_global_position()).distance_to(player_node.get_position())	
 	
 	print('to the objective: ', distance_to_objective)
+	
+	current_position_text_node.set_text("Current position is " + str(player_node.get_global_position()))
 	
 	player_steps = player_steps + 1
 	# we are just gonna playback based off of number of frames
