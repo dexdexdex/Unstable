@@ -17,6 +17,7 @@ var ghost_number
 
 func load_ghost_data(data):
 	ghost_state = data
+	print('i have loaded ghost data ', ghost_state.size())
 	pass
 
 func set_ghost_max_steps(count):
@@ -47,9 +48,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if(counter < ghost_max_steps):
+	if(counter < ghost_max_steps - 1):
 		counter += 1
 		
+	print('my ghost max steps are ', ghost_max_steps, ' and i am ', self.name)
 	position.x = ghost_state[counter].x
 	position.y = ghost_state[counter].y
 

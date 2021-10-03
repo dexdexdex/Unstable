@@ -16,8 +16,11 @@ var new_ghost_object
 
 var ghost_number = 0
 
+var have_reset = false
+
 export(PackedScene) var ghost_object
 export(PackedScene) var objective_object
+export(int)var border_val
 
 var player_steps = 0
 
@@ -28,11 +31,13 @@ var rng = RandomNumberGenerator.new()
 
 var objective_object_instance
 
+# signal reset_ghosts
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
-	objective.x = rng.randi_range(-2800, 2800)
-	objective.y = rng.randi_range(-2800, 2800)
+	objective.x = rng.randi_range(-border_val, border_val)
+	objective.y = rng.randi_range(-border_val, border_val)
 
 	print('objective spawned at ', objective)
 	
@@ -48,7 +53,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+
+	if(have_reset == true):
+		player_steps = 0
+		player_state = []
+		have_reset = false
+		print('of course i a mehere now afte rspawning a thing')
+			
 	var distance_to_objective = (objective_object_instance.get_global_position()).distance_to(player_node.get_position())	
 	
 	print('to the objective: ', distance_to_objective)
@@ -87,3 +98,29 @@ func _process(delta):
 		player_state = []		
 		
 	pass	
+
+
+func objective_reset():
+	var ghost_player_steps = player_steps
+	var ghost_player_state = player_state
+	new_ghost_object = ghost_object.instance()
+	new_ghost_object.load_ghost_data(ghost_player_state)
+	new_ghost_object.set_ghost_max_steps(ghost_player_steps)
+	new_ghost_object.position.x = ghost_player_state[0].x
+	new_ghost_object.position.y = ghost_player_state[0].y
+	new_ghost_object.set_ghost_number(ghost_number)
+		
+		
+	add_child(new_ghost_object)
+	
+	print('finished spawning')
+	ghost_number = ghost_number + 1
+	
+	player_node.set_global_position(Vector2(rng.randi_range(-border_val, border_val), rng.randi_range(-border_val, border_val)))
+		
+	# this is a weird flag that we use to get past some weird race conditions I think
+	have_reset = true
+	#player_steps = 0
+	#player_state = []		
+
+
