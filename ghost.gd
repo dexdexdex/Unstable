@@ -14,6 +14,7 @@ var ghost_max_steps = 0
 
 var player_node
 var ghost_number
+var control_node 
 
 func load_ghost_data(data):
 	ghost_state = data
@@ -39,7 +40,9 @@ func draw_circle_arc(center, radius, angle_from, angle_to, color):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player_node = get_node("/root/controller/player")	
+	player_node = get_node("/root/controller/player")
+	control_node = get_node("/root/controller")
+	control_node.connect("reset_ghosts", self, "_on_reset_ghosts")
 	# load_ghost_data(data)
 	pass # Replace with function body.
 
@@ -68,3 +71,8 @@ func _draw():
 	var angle_to = 360
 	var radius = 100
 	draw_circle_arc(Vector2(0,0), radius, angle_from, angle_to, ghost_circle_color)	
+
+
+func _on_reset_ghosts():
+	print('i am totally resetting properly')
+	counter = 0

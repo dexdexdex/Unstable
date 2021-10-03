@@ -31,7 +31,7 @@ var rng = RandomNumberGenerator.new()
 
 var objective_object_instance
 
-# signal reset_ghosts
+signal reset_ghosts
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -120,6 +120,7 @@ func objective_reset():
 		
 	# this is a weird flag that we use to get past some weird race conditions I think
 	have_reset = true
+	emit_signal("reset_ghosts")	
 	#player_steps = 0
 	#player_state = []		
 
