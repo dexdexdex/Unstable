@@ -1,14 +1,63 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://controller.gd" type="Script" id=2]
+[ext_resource path="res://ghost.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objective.tscn" type="PackedScene" id=4]
+[ext_resource path="res://borders.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://kongtext.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = SubResource( 1 )
+
+[sub_resource type="CircleShape2D" id=3]
 
 [node name="controller" type="Node2D"]
+script = ExtResource( 2 )
+ghost_object = ExtResource( 3 )
+objective_object = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="current_position" type="Label" parent="CanvasLayer"]
+margin_right = 716.0
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 2 )
+text = "Current Position"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="player" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
+limit_left = -3300
+limit_top = -3300
+limit_right = 3300
+limit_bottom = 3300
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+shape = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0.333333 )
 polygon = PoolVector2Array( -16.5571, 80.098, 64.5772, 207.866, 221.159, 142.655, 99.8365, 53.1796 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0.278431 )
+polygon = PoolVector2Array( -546, -343, -324, -989, 406, -907, -146, -641, 614, -473, -78, -329, -726, 9, -816, -275 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0.619608 )
+polygon = PoolVector2Array( 302, 1185, 612, 1821, 2040, 923, 2492, 263, 1916, -201, 2742, -417, 3580, -139, 3910, 887, 2568, 1433, 2416, 1981, 2510, 2291, 3920, 2053, 4408, 1557, 4804, 1057, 4648, 375, 3678, -535, 2550, -949, 1674, -857, 1098, -147, 1796, 399, 1654, 481, 438, 733, -394, 1137, -760, 1743, -92, 2005, 408, 1763, 194, 1161 )
+
+[node name="borders" type="Polygon2D" parent="."]
+color = Color( 0.835294, 0.109804, 0.109804, 0 )
+polygon = PoolVector2Array( 3000, 3000, -3000, 3000, -3000, -3000, 3000, -3000 )
+script = ExtResource( 5 )
+OutLine = Color( 0.32549, 0.0509804, 1, 1 )
