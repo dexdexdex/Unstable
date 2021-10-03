@@ -32,6 +32,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="temporal_instability" type="Label" parent="CanvasLayer"]
+margin_top = 16.4599
+margin_right = 716.0
+margin_bottom = 158.46
+custom_fonts/font = SubResource( 2 )
+text = "Current Position"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="player" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
 border_boundary = 1300
