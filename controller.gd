@@ -16,19 +16,40 @@ var new_ghost_object
 var ghost_number = 0
 
 export(PackedScene) var ghost_object
+export(PackedScene) var objective_object
 
 var player_steps = 0
 
 var detected = false
 
+var objective = Vector2(0,0)
+var rng = RandomNumberGenerator.new()
+
+var objective_object_instance
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
+	objective.x = rng.randi_range(-2800, 2800)
+	objective.y = rng.randi_range(-2800, 2800)
+
+	print('objective spawned at ', objective)
+	
+	objective_object_instance = objective_object.instance()
+	objective_object_instance.position = objective
+	
+	add_child(objective_object_instance)
+	
 	player_node = get_node("/root/controller/player")
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	var distance_to_objective = (objective_object_instance.get_global_position()).distance_to(player_node.get_position())	
+	
+	print('to the objective: ', distance_to_objective)
 	
 	player_steps = player_steps + 1
 	# we are just gonna playback based off of number of frames
