@@ -2,6 +2,8 @@
 
 [ext_resource path="res://ghost.gd" type="Script" id=1]
 
-[node name="ghost" type="Node2D"]
+[node name="ghost" type="KinematicBody2D"]
+collision_layer = 0
 script = ExtResource( 1 )
 ghost_color = Color( 0.223529, 0.423529, 0.729412, 1 )
+ghost_circle_color = Color( 1, 0.00392157, 0.00392157, 1 )
