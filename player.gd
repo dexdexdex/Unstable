@@ -11,6 +11,8 @@ var int_velocity = Vector2(0,0)
 var speed = 300
 var velocity = Vector2(0,0)
 
+export(int) var border_boundary
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	control_node = get_node("/root/controller")
@@ -41,17 +43,17 @@ func _process(delta):
 	if collision:
 		print("I collided with ", collision.collider.name)
 
-	if(position.x > 3000-10):
-		position.x = 3000-10
+	if(position.x > border_boundary-10):
+		position.x = border_boundary-10
 	
-	if(position.x < -3000+10):
-		position.x = -3000+10
+	if(position.x < -border_boundary+10):
+		position.x = -border_boundary+10
 	
-	if(position.y > 3000-10):
-		position.y = 3000-10
+	if(position.y > border_boundary-10):
+		position.y = border_boundary-10
 	
-	if(position.y < -3000+10):
-		position.y = -3000+10
+	if(position.y < -border_boundary+10):
+		position.y = -border_boundary+10
 
 					
 	pass
