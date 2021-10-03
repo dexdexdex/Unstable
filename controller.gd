@@ -22,6 +22,7 @@ var have_reset = false
 export(PackedScene) var ghost_object
 export(PackedScene) var objective_object
 export(int)var border_val
+export (PackedScene) var Server
 
 var player_steps = 0
 
@@ -51,7 +52,26 @@ func _ready():
 	
 	player_node = get_node("/root/controller/player")
 	current_position_text_node = get_node("/root/controller/CanvasLayer/current_position")
+
 	temporal_instability_text_node = get_node("/root/controller/CanvasLayer/temporal_instability")
+
+  var server_width = 64
+	var server_height = 64
+	
+	var num_servers_per_row = 1024/server_width
+	var num_rows = 1024/server_height
+	
+	for row in range(-num_rows, num_rows):
+		if row % 4 == 0:
+			for col in range(-num_servers_per_row,num_servers_per_row):
+				if col % 4 == 0:
+					var server = Server.instance()
+					server.position.x = col * server_width
+					server.position.y = row * server_height
+					print(server.get_node("Sprite").texture.get_height())
+					add_child(server)
+
+
 	pass # Replace with function body.
 
 
