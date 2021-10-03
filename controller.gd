@@ -11,6 +11,7 @@ extends Node2D
 var player_state = []
 var player_node
 var current_position_text_node 
+var temporal_instability_text_node
 
 var new_ghost_object
 
@@ -36,13 +37,13 @@ var objective_object_instance
 
 signal reset_ghosts
 
+var temporal_instability = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
 	objective.x = rng.randi_range(-border_val, border_val)
 	objective.y = rng.randi_range(-border_val, border_val)
-
-	print('objective spawned at ', objective)
 	
 	objective_object_instance = objective_object.instance()
 	objective_object_instance.position = objective
@@ -51,7 +52,10 @@ func _ready():
 	
 	player_node = get_node("/root/controller/player")
 	current_position_text_node = get_node("/root/controller/CanvasLayer/current_position")
-	var server_width = 64
+
+	temporal_instability_text_node = get_node("/root/controller/CanvasLayer/temporal_instability")
+
+  var server_width = 64
 	var server_height = 64
 	
 	var num_servers_per_row = 1024/server_width
@@ -66,6 +70,8 @@ func _ready():
 					server.position.y = row * server_height
 					print(server.get_node("Sprite").texture.get_height())
 					add_child(server)
+
+
 	pass # Replace with function body.
 
 
@@ -78,13 +84,11 @@ func _process(delta):
 		player_steps = 0
 		player_state = []
 		have_reset = false
-		print('of course i a mehere now afte rspawning a thing')
 			
 	var distance_to_objective = (objective_object_instance.get_global_position()).distance_to(player_node.get_position())	
 	
-	print('to the objective: ', distance_to_objective)
-	
 	current_position_text_node.set_text("Current position is " + str(player_node.get_global_position()))
+	temporal_instability_text_node.set_text("Temporal Instability at " + str(temporal_instability))
 	
 	player_steps = player_steps + 1
 	# we are just gonna playback based off of number of frames

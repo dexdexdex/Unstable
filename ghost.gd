@@ -61,6 +61,7 @@ func _process(delta):
 
 	var distance_to_player = (self.get_global_position()).distance_to(player_node.get_position())
 	if(distance_to_player <= 100):
+		control_node.temporal_instability += (100 - distance_to_player) * delta * 5
 		print('super super DETECTED by ', ghost_number)
 
 
