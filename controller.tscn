@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+
+[node name="controller" type="Node2D"]
+
+[node name="player" type="RigidBody2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+current = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( -16.5571, 80.098, 64.5772, 207.866, 221.159, 142.655, 99.8365, 53.1796 )
