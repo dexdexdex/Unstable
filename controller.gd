@@ -55,7 +55,7 @@ func _ready():
 
 	temporal_instability_text_node = get_node("/root/controller/CanvasLayer/temporal_instability")
 
-  var server_width = 64
+	var server_width = 64
 	var server_height = 64
 	
 	var num_servers_per_row = 1024/server_width
