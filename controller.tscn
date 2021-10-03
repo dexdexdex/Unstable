@@ -38,10 +38,10 @@ border_boundary = 1300
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
-limit_left = -1300
-limit_top = -1300
-limit_right = 1300
-limit_bottom = 1300
+limit_left = -1500
+limit_top = -1500
+limit_right = 1500
+limit_bottom = 1500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
 shape = SubResource( 3 )
