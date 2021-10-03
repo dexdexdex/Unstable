@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 
 # Declare member variables here. Examples:
@@ -9,6 +9,7 @@ var control_node
 var camera_posn
 var int_velocity = Vector2(0,0)
 var speed = 300
+var velocity = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +35,11 @@ func _process(delta):
 	if int_velocity.length() > 0:		
 		int_velocity = int_velocity.normalized() * speed * 2.5
 
-	self.set_linear_velocity(int_velocity)
+	velocity = int_velocity	
+
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		print("I collided with ", collision.collider.name)
 					
 	pass
 
