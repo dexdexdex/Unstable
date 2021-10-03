@@ -29,6 +29,8 @@ var detected = false
 var objective = Vector2(0,0)
 var rng = RandomNumberGenerator.new()
 
+var camera_posn
+
 var objective_object_instance
 
 signal reset_ghosts
@@ -53,6 +55,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
+	camera_posn = $player/Camera2D.get_camera_position()
 
 	if(have_reset == true):
 		player_steps = 0
@@ -96,6 +100,16 @@ func _process(delta):
 	if Input.is_action_pressed("ui_w"):
 		player_steps = 0
 		player_state = []		
+
+	var vector_to_waypoint_x = objective_object_instance.get_global_position().x - player_node.get_global_position().x 
+	var vector_to_waypoint_y = objective_object_instance.get_global_position().y - player_node.get_global_position().y 
+
+	var clamped_vector = Vector2(vector_to_waypoint_x, vector_to_waypoint_y).clamped(100)
+
+	objective_object_instance.get_node("indicator").global_position = Vector2(clamped_vector.x + camera_posn.x, clamped_vector.y + camera_posn.y)
+
+	objective_object_instance.get_node("indicator").look_at(objective_object_instance.get_global_position())
+
 		
 	pass	
 

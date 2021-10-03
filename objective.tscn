@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://objective.gd" type="Script" id=1]
+[ext_resource path="res://indicator.gd" type="Script" id=2]
 
 [node name="objective" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -5.071, 5.10583, 2.57122, -2.45958 ],
+"_edit_vertical_guides_": [ 5.02715, -4.91925 ]
+}
 objective_color = Color( 0.156863, 0.65098, 0.141176, 1 )
 objective_border = 1000
+
+[node name="indicator" type="Polygon2D" parent="."]
+scale = Vector2( 3, 3 )
+color = Color( 0.788235, 0.807843, 0.862745, 1 )
+polygon = PoolVector2Array( 0.111565, 2.68644, 5.14237, 0.0750237, 0.18837, -2.26757 )
+script = ExtResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="indicator" method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="indicator" method="_on_VisibilityNotifier2D_screen_exited"]
