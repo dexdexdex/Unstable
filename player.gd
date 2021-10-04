@@ -32,6 +32,7 @@ func _process(delta):
 			int_velocity.y = yAxis
 	else:
 		if Input.is_action_pressed("ui_right"):
+			print('hell oright')
 			int_velocity.x += 1
 		if Input.is_action_pressed("ui_left"):
 			int_velocity.x -= 1

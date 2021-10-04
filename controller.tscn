@@ -44,6 +44,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="splash" type="Node2D" parent="CanvasLayer"]
+
+[node name="splash_panel" type="Panel" parent="CanvasLayer/splash"]
+margin_left = -509.0
+margin_top = -299.0
+margin_right = 513.0
+margin_bottom = 298.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="player" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
 border_boundary = 1300
