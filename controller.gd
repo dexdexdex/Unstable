@@ -227,7 +227,6 @@ func _process(delta):
 
 
 func objective_reset():
-	$CanvasLayer/GUI.update_code()
 	var ghost_player_steps = player_steps
 	var ghost_player_state = player_state
 	new_ghost_object = ghost_object.instance()
