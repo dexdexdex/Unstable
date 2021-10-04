@@ -48,7 +48,7 @@ func _process(delta):
 
 		velocity = int_velocity	
 
-		var collision = move_and_collide(velocity * delta)
+		var collision = move_and_slide(velocity)
 		if collision:
 			pass
 			#print("I collided with ", collision.collider.name)
