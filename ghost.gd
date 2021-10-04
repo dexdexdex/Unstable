@@ -50,27 +50,28 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	if reverse:
-		if (counter == 0):
-			counter += 1
-			reverse = false
-		else:
-			counter -= 1
-	else:	
-		if(counter < ghost_max_steps - 1):
-			counter += 1
-		else:
-			counter -= 1
-			reverse = true
-		
-	position.x = ghost_state[counter].x
-	position.y = ghost_state[counter].y
+
+	if(control_node.game_state == "time_loop"):	
+		if reverse:
+			if (counter == 0):
+				counter += 1
+				reverse = false
+			else:
+				counter -= 1
+		else:	
+			if(counter < ghost_max_steps - 1):
+				counter += 1
+			else:
+				counter -= 1
+				reverse = true
+			
+		position.x = ghost_state[counter].x
+		position.y = ghost_state[counter].y
 
 
-	var distance_to_player = (self.get_global_position()).distance_to(player_node.get_position())
-	if(distance_to_player <= 100):
-		control_node.temporal_instability += (100 - distance_to_player) * delta * 5
+		var distance_to_player = (self.get_global_position()).distance_to(player_node.get_position())
+		if(distance_to_player <= 100):
+			control_node.temporal_instability += (100 - distance_to_player) * delta * 5
 
 
 func _draw():
