@@ -40,6 +40,7 @@ func draw_circle_arc(center, radius, angle_from, angle_to, color):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("ghost")	
 	player_node = get_node("/root/controller/player")
 	control_node = get_node("/root/controller")
 	control_node.connect("reset_ghosts", self, "_on_reset_ghosts")

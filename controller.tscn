@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://controller.gd" type="Script" id=2]
@@ -13,6 +13,14 @@ font_path = "res://kongtext.ttf"
 size = 12
 font_data = SubResource( 1 )
 
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+font_data = SubResource( 1 )
+
 [sub_resource type="CircleShape2D" id=3]
 
 [node name="controller" type="Node2D"]
@@ -24,6 +32,7 @@ Server = ExtResource( 6 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="time_loop" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="current_position" type="Label" parent="CanvasLayer/time_loop"]
 margin_right = 716.0
@@ -45,14 +54,137 @@ __meta__ = {
 }
 
 [node name="splash" type="Node2D" parent="CanvasLayer"]
+visible = false
 
 [node name="splash_panel" type="Panel" parent="CanvasLayer/splash"]
 margin_left = -509.0
 margin_top = -299.0
-margin_right = 513.0
-margin_bottom = 298.0
+margin_right = 1031.0
+margin_bottom = 606.0
 __meta__ = {
 "_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="CanvasLayer/splash"]
+margin_left = 74.902
+margin_top = 193.649
+margin_right = 974.902
+margin_bottom = 335.649
+custom_fonts/font = SubResource( 4 )
+text = "UNSTABLE TIME LOOP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instructions" type="Label" parent="CanvasLayer/splash"]
+margin_left = 276.772
+margin_top = 317.894
+margin_right = 992.772
+margin_bottom = 459.895
+custom_fonts/font = SubResource( 5 )
+text = "Press Any Key To Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="story" type="Node2D" parent="CanvasLayer"]
+visible = false
+
+[node name="story_panel" type="Panel" parent="CanvasLayer/story"]
+margin_left = -509.0
+margin_top = -299.0
+margin_right = 1031.0
+margin_bottom = 606.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="CanvasLayer/story"]
+margin_left = 74.902
+margin_top = 193.649
+margin_right = 974.902
+margin_bottom = 335.649
+custom_fonts/font = SubResource( 4 )
+text = "STORY SEGMENT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instructions" type="Label" parent="CanvasLayer/story"]
+margin_left = 276.772
+margin_top = 317.894
+margin_right = 992.772
+margin_bottom = 459.895
+custom_fonts/font = SubResource( 5 )
+text = "Super cool story"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game_over" type="Node2D" parent="CanvasLayer"]
+
+[node name="game_over_panel" type="Panel" parent="CanvasLayer/game_over"]
+margin_left = -509.0
+margin_top = -299.0
+margin_right = 1031.0
+margin_bottom = 606.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="game_over_title" type="Label" parent="CanvasLayer/game_over"]
+margin_left = 74.902
+margin_top = 193.649
+margin_right = 974.902
+margin_bottom = 335.649
+custom_fonts/font = SubResource( 4 )
+text = "GAME OVER"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="continue" type="Label" parent="CanvasLayer/game_over"]
+margin_left = 276.772
+margin_top = 317.894
+margin_right = 992.772
+margin_bottom = 459.895
+custom_fonts/font = SubResource( 5 )
+text = "Try again..."
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="victory" type="Node2D" parent="CanvasLayer"]
+
+[node name="victory_panel" type="Panel" parent="CanvasLayer/victory"]
+margin_left = -509.0
+margin_top = -299.0
+margin_right = 1031.0
+margin_bottom = 606.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="victory_title" type="Label" parent="CanvasLayer/victory"]
+margin_left = 74.902
+margin_top = 193.649
+margin_right = 974.902
+margin_bottom = 335.649
+custom_fonts/font = SubResource( 4 )
+text = "CONGRATS"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="play_again" type="Label" parent="CanvasLayer/victory"]
+margin_left = 276.772
+margin_top = 317.894
+margin_right = 992.772
+margin_bottom = 459.895
+custom_fonts/font = SubResource( 5 )
+text = "The timelines are safe!"
+__meta__ = {
+"_edit_use_anchors_": true
 }
 
 [node name="player" type="KinematicBody2D" parent="."]
