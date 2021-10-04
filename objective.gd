@@ -25,8 +25,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var distance_to_player = (self.get_global_position()).distance_to(player_node.get_position())
-	if(distance_to_player < 100):
-		print('congrats congrats you did it')
+	if(distance_to_player < 20):
 		control_node.objective_reset()
 		var new_position = Vector2(rng.randi_range(-objective_border, objective_border), rng.randi_range(-objective_border, objective_border))
 		set_global_position(new_position)
@@ -34,4 +33,4 @@ func _process(delta):
 	pass
 
 func _draw():
-	draw_circle(Vector2(0,0), 10, objective_color)
+	draw_circle(Vector2(0,0), 20, objective_color)

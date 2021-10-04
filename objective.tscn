@@ -4,6 +4,7 @@
 [ext_resource path="res://indicator.gd" type="Script" id=2]
 
 [node name="objective" type="Node2D"]
+visible = false
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -5.071, 5.10583, 2.57122, -2.45958 ],
