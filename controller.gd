@@ -39,14 +39,18 @@ signal reset_ghosts
 var temporal_instability = 0
 var active_server
 
+# the game states go from splash -> setup -> hangman -> timeloop -> hangman (ad naseum
+# end states are victory or unstable
+var game_state = "splash"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
 	
 	player_node = get_node("/root/controller/player")
-	current_position_text_node = get_node("/root/controller/CanvasLayer/current_position")
+	current_position_text_node = get_node("/root/controller/CanvasLayer/time_loop/current_position")
 
-	temporal_instability_text_node = get_node("/root/controller/CanvasLayer/temporal_instability")
+	temporal_instability_text_node = get_node("/root/controller/CanvasLayer/time_loop/temporal_instability")
 
 	var server_width = 64
 	var server_height = 64
@@ -82,56 +86,60 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
-	camera_posn = $player/Camera2D.get_camera_position()
-
-	if(have_reset == true):
-		player_steps = 0
-		player_state = []
-		have_reset = false
-			
-	
-	current_position_text_node.set_text("Current position is " + str(player_node.get_global_position()))
-	temporal_instability_text_node.set_text("Temporal Instability at " + str(temporal_instability))
-	
-	player_steps = player_steps + 1
-	# we are just gonna playback based off of number of frames
-	# print ('current player position is ', player_node.get_global_position())
-	var frame_data = {
-		"x": player_node.get_global_position().x,
-		"y": player_node.get_global_position().y
-	}
-	
-	player_state.append(frame_data)
-
-	if Input.is_action_pressed("ui_q"):
+	if(game_state == "splash"):
+		pass	
 		
-		var ghost_player_steps = player_steps
-		var ghost_player_state = player_state
-		new_ghost_object = ghost_object.instance()
-		new_ghost_object.load_ghost_data(ghost_player_state)
-		new_ghost_object.set_ghost_max_steps(ghost_player_steps)
-		new_ghost_object.position.x = ghost_player_state[0].x
-		new_ghost_object.position.y = ghost_player_state[0].y
-		new_ghost_object.set_ghost_number(ghost_number)
-			
-		add_child(new_ghost_object)
-		ghost_number = ghost_number + 1
+	else:
+		camera_posn = $player/Camera2D.get_camera_position()
+
+		if(have_reset == true):
+			player_steps = 0
+			player_state = []
+			have_reset = false
+				
 		
-	pass
-	
-	
-	if Input.is_action_pressed("ui_w"):
-		player_steps = 0
-		player_state = []		
+		current_position_text_node.set_text("Current position is " + str(player_node.get_global_position()))
+		temporal_instability_text_node.set_text("Temporal Instability at " + str(temporal_instability))
+		
+		player_steps = player_steps + 1
+		# we are just gonna playback based off of number of frames
+		# print ('current player position is ', player_node.get_global_position())
+		var frame_data = {
+			"x": player_node.get_global_position().x,
+			"y": player_node.get_global_position().y
+		}
+		
+		player_state.append(frame_data)
 
-	var vector_to_waypoint_x = server_nodes[active_server].get_global_position().x - player_node.get_global_position().x 
-	var vector_to_waypoint_y = server_nodes[active_server].get_global_position().y - player_node.get_global_position().y 
+		if Input.is_action_pressed("ui_q"):
+			
+			var ghost_player_steps = player_steps
+			var ghost_player_state = player_state
+			new_ghost_object = ghost_object.instance()
+			new_ghost_object.load_ghost_data(ghost_player_state)
+			new_ghost_object.set_ghost_max_steps(ghost_player_steps)
+			new_ghost_object.position.x = ghost_player_state[0].x
+			new_ghost_object.position.y = ghost_player_state[0].y
+			new_ghost_object.set_ghost_number(ghost_number)
+				
+			add_child(new_ghost_object)
+			ghost_number = ghost_number + 1
+			
+		pass
+		
+		
+		if Input.is_action_pressed("ui_w"):
+			player_steps = 0
+			player_state = []		
 
-	var clamped_vector = Vector2(vector_to_waypoint_x, vector_to_waypoint_y).clamped(100)
+		var vector_to_waypoint_x = server_nodes[active_server].get_global_position().x - player_node.get_global_position().x 
+		var vector_to_waypoint_y = server_nodes[active_server].get_global_position().y - player_node.get_global_position().y 
 
-	server_nodes[active_server].get_node("indicator").global_position = Vector2(clamped_vector.x + camera_posn.x, clamped_vector.y + camera_posn.y)
+		var clamped_vector = Vector2(vector_to_waypoint_x, vector_to_waypoint_y).clamped(100)
 
-	server_nodes[active_server].get_node("indicator").look_at(server_nodes[active_server].get_global_position())
+		server_nodes[active_server].get_node("indicator").global_position = Vector2(clamped_vector.x + camera_posn.x, clamped_vector.y + camera_posn.y)
+
+		server_nodes[active_server].get_node("indicator").look_at(server_nodes[active_server].get_global_position())
 
 		
 	pass	
