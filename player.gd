@@ -30,16 +30,16 @@ func _process(delta):
 			int_velocity.x = xAxis
 		if(abs(yAxis) > 0.2):
 			int_velocity.y = yAxis
-	else:
-		if Input.is_action_pressed("ui_right"):
-			print('hell oright')
-			int_velocity.x += 1
-		if Input.is_action_pressed("ui_left"):
-			int_velocity.x -= 1
-		if Input.is_action_pressed("ui_down"):
-			int_velocity.y += 1
-		if Input.is_action_pressed("ui_up"):
-			int_velocity.y -= 1
+
+	if Input.is_action_pressed("ui_right"):
+		int_velocity.x += 1
+	if Input.is_action_pressed("ui_left"):
+		int_velocity.x -= 1
+	if Input.is_action_pressed("ui_down"):
+		int_velocity.y += 1
+	if Input.is_action_pressed("ui_up"):
+		int_velocity.y -= 1
+		
 		
 	if int_velocity.length() > 0:		
 		int_velocity = int_velocity.normalized() * speed * 2.5
