@@ -41,7 +41,8 @@ func _process(delta):
 
 	var collision = move_and_collide(velocity * delta)
 	if collision:
-		print("I collided with ", collision.collider.name)
+		pass
+		#print("I collided with ", collision.collider.name)
 
 	if(position.x > border_boundary-10):
 		position.x = border_boundary-10
