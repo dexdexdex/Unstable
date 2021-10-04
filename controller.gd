@@ -65,7 +65,6 @@ func _ready():
 					var server = Server.instance()
 					server.position.x = col * server_width
 					server.position.y = row * server_height
-					print(server.get_node("Sprite").texture.get_height())
 					add_child(server)
 
 	# make one of the servers random
