@@ -15,6 +15,7 @@ var ghost_max_steps = 0
 var player_node
 var ghost_number
 var control_node 
+var reverse = false
 
 func load_ghost_data(data):
 	ghost_state = data
@@ -50,8 +51,18 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if(counter < ghost_max_steps - 1):
-		counter += 1
+	if reverse:
+		if (counter == 0):
+			counter += 1
+			reverse = false
+		else:
+			counter -= 1
+	else:	
+		if(counter < ghost_max_steps - 1):
+			counter += 1
+		else:
+			counter -= 1
+			reverse = true
 		
 	position.x = ghost_state[counter].x
 	position.y = ghost_state[counter].y
