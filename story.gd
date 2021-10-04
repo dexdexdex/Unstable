@@ -14,6 +14,8 @@ func _ready():
 	rng.randomize()
 	pass # Replace with function body.
 
+func resetCode():
+	code = []
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

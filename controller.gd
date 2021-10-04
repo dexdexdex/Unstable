@@ -109,6 +109,7 @@ func _input(event):
 	if(game_state == "game_over" or game_state == "victory"):
 		temporal_instability = 0
 		keys_obtained = 0
+		story_node.resetCode()
 		if event is InputEventKey:
 			if event.pressed:
 				game_state = "splash"
