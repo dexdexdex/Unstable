@@ -22,17 +22,23 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	int_velocity = Vector2(0,0)
-	
-	if Input.is_action_pressed("ui_right"):
-		int_velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
-		int_velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		int_velocity.y += 1
-	if Input.is_action_pressed("ui_up"):
-		int_velocity.y -= 1
+	if Input.get_connected_joypads().size() > 0:
+		var xAxis = Input.get_joy_axis(0,JOY_AXIS_0)
+		var yAxis = Input.get_joy_axis(0,JOY_AXIS_1)
+		if(abs(xAxis) > 0.2):
+			int_velocity.x = xAxis
+		if(abs(yAxis) > 0.2):
+			int_velocity.y = yAxis
+	else:
+		if Input.is_action_pressed("ui_right"):
+			int_velocity.x += 1
+		if Input.is_action_pressed("ui_left"):
+			int_velocity.x -= 1
+		if Input.is_action_pressed("ui_down"):
+			int_velocity.y += 1
+		if Input.is_action_pressed("ui_up"):
+			int_velocity.y -= 1
 		
 	if int_velocity.length() > 0:		
 		int_velocity = int_velocity.normalized() * speed * 2.5
